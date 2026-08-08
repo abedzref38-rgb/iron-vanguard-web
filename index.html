@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#07111f">
-<title>Iron Vanguard: Frontline Director V12</title>
+<title>Iron Vanguard: Ascendant V15</title>
 <style>
 :root{--bg:#02070b;--panel:#07171dee;--panel2:#0b2027;--line:#8be8f126;--gold:#ffb45d;--orange:#ff7a45;--blue:#42b8d2;--cyan:#67e8f9;--green:#5ee6a1;--red:#ff625d;--purple:#a78bfa;--muted:#8da5ad}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -104,9 +104,15 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
 <section id="homeScreen" class="screen">
  <div class="topbar"><div class="brand">IRON VANGUARD</div><div class="wallet"><div class="pill">🪙 <b data-wallet-coins>0</b></div><div class="pill">💎 <b data-wallet-gems>0</b></div></div></div>
- <div class="content">
-  <div class="hero"><div class="hero-title"><b>قاعدة الطليعة</b><span id="zoneName">منطقة الجسر</span></div><div class="base-props"><div class="tower a"></div><div class="tower b"></div><div class="crate a"></div><div class="crate b"></div></div><div class="hero-unit"><div class="u-helmet"></div><div class="u-head"></div><div id="previewBody" class="u-body"></div><div class="u-vest"></div><div class="u-leg a"></div><div class="u-leg b"></div><div class="u-gun"></div></div><div class="stage-card"><div><h3 id="stageTitle">المرحلة 1</h3><p id="stageDescription">اختر البوابات الصحيحة وابنِ كتيبتك</p></div><button id="playBtn" class="play">ابدأ</button></div></div>
-  <div class="grid"><div class="tile"><b>🎁 المكافأة اليومية</b><span id="dailyText">مكافأة جاهزة</span><button id="dailyBtn">استلام</button></div><div class="tile"><b>🗺 تقدم الحملة</b><span id="campaignText">1 / 15</span><button data-go="campaign">الخريطة</button></div><div class="tile"><b>🎯 المهمة النشطة</b><span id="quickMissionText">اهزم 25 عدوًا</span></div><div class="tile"><b>⚡ قوة التشكيلة</b><span id="powerText">100</span></div></div>
+ <div class="content home-v15-content">
+  <div class="hero hero-v15">
+   <div class="hero-title"><b>قاعدة الطليعة</b><span id="zoneName">منطقة الجسر</span></div>
+   <div class="hero-status"><div class="status-chip"><small>التقدم</small><strong id="campaignText">1 / 1200</strong></div><div class="status-chip"><small>القوة</small><strong id="powerText">100</strong></div></div>
+   <div class="base-props"><div class="tower a"></div><div class="tower b"></div><div class="squad-ghost s1"></div><div class="squad-ghost s2"></div><div class="squad-ghost s3"></div></div>
+   <div class="hero-unit"><div class="u-helmet"></div><div class="u-head"></div><div class="u-visor"></div><div id="previewBody" class="u-body"></div><div class="u-vest"></div><div class="u-core"></div><div class="u-shoulder l"></div><div class="u-shoulder r"></div><div class="u-leg a"></div><div class="u-leg b"></div><div class="u-gun"></div></div>
+   <div class="stage-card"><div><h3 id="stageTitle">المرحلة 1</h3><p id="stageDescription">اختر البوابات الصحيحة وابنِ كتيبتك</p></div><button id="playBtn" class="play">ابدأ</button></div>
+  </div>
+  <div class="grid grid-v15"><div class="tile tile-focus"><b>🎁 المكافأة اليومية</b><span id="dailyText">مكافأة جاهزة</span><button id="dailyBtn">استلام</button></div><div class="tile"><b>🎯 المهمة النشطة</b><span id="quickMissionText">اهزم 25 عدوًا</span></div><div class="tile tile-map"><b>🗺 الحملة</b><span>انتقل إلى الخريطة واختر مرحلة جديدة</span><button data-go="campaign">الخريطة</button></div></div>
  </div>
  <nav class="nav"><button data-tab="home" class="active"><b>⌂</b>القاعدة</button><button data-tab="campaign"><b>⌖</b>الحملة</button><button data-tab="heroes"><b>♟</b>الأبطال</button><button data-tab="missions"><b>✓</b>المهام</button><button data-tab="upgrades"><b>⚙</b>التطوير</button><button data-tab="store"><b>◈</b>المتجر</button></nav>
 </section>
@@ -493,6 +499,115 @@ window.__ironVanguardTest={
  lose:function(){finishGame(false)},
  state:function(){var allRoad=enemies.map(function(e){return{u:e.u,z:e.z}}).concat(crates.map(function(e){return{u:e.u,z:e.z}})).concat(pickups.map(function(e){return{u:e.u,z:e.z}}));var within=allRoad.every(function(e){var p=project(e.u,e.z);return p.x>=W/2-p.half&&p.x<=W/2+p.half});var squadWithin=formationPositions().every(function(fp){var half=roadHalfY(fp.y);return fp.x-22>=W/2-half&&fp.x+22<=W/2+half});return{running:game.running,paused:game.paused,stage:game.stage,squad:squad.length,health:game.health,score:game.score,enemies:enemies.length,gates:gates.length,crates:crates.length,pickups:pickups.length,bullets:bullets.length,shield:game.shield,overdrive:game.overdrive,difficulty:Number(difficultyScale().toFixed(3)),threat:stageThreat(),corpses:corpses.length,barrels:barrels.length,hazards:hazards.length,eventIndex:game.eventIndex,leaderX:Math.round(leader.x),targetX:Math.round(leader.targetX),withinRoad:within,squadWithin:squadWithin,error:id('errorBox').style.display||'none'}}
 };
+
+<script>
+/* V15 CLEAN TACTICAL LAYER — cleaner lobby, richer hero, tighter readable formations */
+(function(){
+  var v15css=document.createElement('style');
+  v15css.textContent=`
+  .home-v15-content{padding-top:12px}
+  .hero-v15{height:372px;border:1px solid #83ecf03a;border-radius:28px;background:
+    linear-gradient(180deg,#03101dcc 0%,#03101d55 32%,#02070be8 100%),
+    radial-gradient(circle at 50% 18%,#5ee6a133 0%,transparent 28%),
+    radial-gradient(circle at 50% -10%,#6ee7ff33 0%,transparent 42%),
+    linear-gradient(180deg,#081f33 0%,#030914 100%);
+    box-shadow:0 24px 60px #000b, inset 0 1px 0 #ffffff14;overflow:hidden;position:relative}
+  .hero-v15:before{content:"";position:absolute;inset:auto -8% 0;height:43%;background:linear-gradient(180deg,#243445 0%,#0b1320 72%,#05080f 100%);clip-path:polygon(0 100%,11% 48%,20% 58%,29% 24%,39% 44%,50% 9%,63% 39%,73% 19%,83% 56%,91% 37%,100% 100%);opacity:.96}
+  .hero-v15:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 18%,#ffffff0a 18% 18.2%,transparent 18.2% 40%,#ffffff08 40% 40.2%,transparent 40.2% 61%,#ffffff08 61% 61.2%,transparent 61.2% 100%);mix-blend-mode:screen;pointer-events:none}
+  .hero-v15 .hero-title{top:18px;right:18px;max-width:52%;z-index:5}.hero-v15 .hero-title b{font-size:28px;text-shadow:0 5px 20px #000}.hero-v15 .hero-title span{font-size:12px;color:#d7f8ff;display:block;margin-top:4px}
+  .hero-status{position:absolute;top:18px;left:18px;display:grid;gap:8px;z-index:5;min-width:124px}.status-chip{background:#041321cf;border:1px solid #8be8f130;border-radius:16px;padding:9px 11px;backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 #ffffff10}.status-chip small{display:block;font-size:10px;color:#90a7b3;margin-bottom:3px}.status-chip strong{display:block;font-size:15px;color:#f4fbff}
+  .hero-v15 .base-props{opacity:.84}.hero-v15 .tower{bottom:112px;width:46px;background:linear-gradient(180deg,#172334,#0f1725);border:1px solid #70e5ee3a;border-radius:13px 13px 4px 4px;box-shadow:0 8px 24px #0009}.hero-v15 .tower:before{top:-56px;width:10px;height:58px;background:linear-gradient(180deg,#41556b,#8ea0b5)}.hero-v15 .tower:after{top:-62px;width:34px;height:10px;background:#68f0ff;box-shadow:0 0 22px #5be8ff}.hero-v15 .tower.a{left:18px;height:118px}.hero-v15 .tower.b{right:18px;height:146px}.hero-v15 .crate{display:none}
+  .squad-ghost{position:absolute;bottom:72px;width:52px;height:84px;border-radius:18px 18px 12px 12px;background:linear-gradient(180deg,#1b4252,#0a1520);opacity:.4;filter:blur(.2px);box-shadow:0 10px 22px #0008}.squad-ghost:before{content:"";position:absolute;left:14px;top:-22px;width:24px;height:24px;border-radius:50%;background:#8496a7}.squad-ghost:after{content:"";position:absolute;right:-18px;top:24px;width:42px;height:7px;border-radius:8px;background:#63798a}.squad-ghost.s1{left:34%;transform:scale(.84)}.squad-ghost.s2{left:21%;transform:scale(.74);opacity:.3}.squad-ghost.s3{right:22%;transform:scale(.78);opacity:.3}
+  .hero-v15 .hero-unit{left:50%;bottom:56px;width:188px;height:244px;z-index:4;filter:drop-shadow(0 28px 20px #000d)}
+  .hero-v15 .u-head{width:54px;height:54px;left:67px;top:26px;background:#e6b98c;box-shadow:inset 0 -7px 0 #d49a70}
+  .hero-v15 .u-helmet{width:88px;height:50px;left:50px;top:8px;border-radius:48px 48px 18px 18px;background:linear-gradient(180deg,#5d6f88,#1f2c41);border-bottom:6px solid #0b1420;box-shadow:0 8px 18px #0008}
+  .hero-v15 .u-visor{position:absolute;left:64px;top:32px;width:58px;height:18px;border-radius:12px;background:linear-gradient(90deg,#74e9ff,#ccfbff,#74e9ff);box-shadow:0 0 18px #67e8f9}
+  .hero-v15 .u-body{width:102px;height:108px;left:43px;top:78px;border-radius:24px 24px 18px 18px;border:4px solid #1d7361;background:linear-gradient(180deg,var(--hero-body,#2ac48a),#147e61 68%,#0f5344)}
+  .hero-v15 .u-core{position:absolute;left:78px;top:112px;width:34px;height:40px;border-radius:10px;background:linear-gradient(180deg,#0d1621,#102434);box-shadow:inset 0 0 0 2px #6de3f1aa}
+  .hero-v15 .u-vest{width:86px;height:34px;left:51px;top:105px;background:linear-gradient(180deg,#19362b,#10271f);border-radius:10px;box-shadow:inset 0 0 0 2px #2a5f4b}
+  .hero-v15 .u-shoulder{position:absolute;top:88px;width:24px;height:22px;border-radius:8px;background:linear-gradient(180deg,#657489,#223247)}.hero-v15 .u-shoulder.l{left:30px}.hero-v15 .u-shoulder.r{right:30px}
+  .hero-v15 .u-leg{width:28px;height:82px;top:154px;border-radius:13px;background:linear-gradient(180deg,#202c39,#0e1520)}.hero-v15 .u-leg.a{left:56px}.hero-v15 .u-leg.b{right:56px}
+  .hero-v15 .u-gun{width:104px;height:14px;left:96px;top:113px;border-radius:10px;background:linear-gradient(180deg,#8ca0b0,#5d7184);transform:rotate(-8deg)}.hero-v15 .u-gun:after{width:36px;height:7px;right:-30px;top:4px;background:#1a2431}.hero-v15 .u-gun:before{width:28px;height:8px;left:28px;top:11px;background:#0d1520}
+  .hero-v15 .stage-card{left:14px;right:14px;bottom:14px;padding:13px 14px;background:linear-gradient(180deg,#03111ddd,#02070bee);border:1px solid #90f5ff33;border-radius:20px;box-shadow:0 16px 26px #0008;z-index:6}.hero-v15 .stage-card h3{font-size:20px;margin-bottom:4px}.hero-v15 .stage-card p{font-size:12px;color:#cce7ee;max-width:90%}
+  .play{min-width:96px;padding:14px 22px;border-radius:17px;background:linear-gradient(180deg,#ffe6a4,#ff9d55 58%,#ff8745 100%);box-shadow:0 8px 0 #7c2d12,0 12px 24px #0008}.play:active{transform:translateY(3px);box-shadow:0 4px 0 #7c2d12}
+  .grid-v15{margin-top:12px;grid-template-columns:1fr 1fr}.grid-v15 .tile{min-height:104px;padding:14px;background:linear-gradient(180deg,#071520,#08131d);border:1px solid #8be8f11f;border-radius:18px;box-shadow:inset 0 1px 0 #ffffff0b}.grid-v15 .tile b{font-size:15px;margin-bottom:6px}.grid-v15 .tile span{font-size:12px}.grid-v15 .tile-focus{background:linear-gradient(180deg,#0a1824,#09131d)}.grid-v15 .tile-map button,.grid-v15 .tile-focus button{margin-top:10px;background:#12294a}
+  .content{height:calc(100% - 148px)}
+  @media (max-height:740px){.hero-v15{height:344px}.hero-v15 .hero-unit{transform:translateX(-50%) scale(.92);transform-origin:bottom center}.status-chip strong{font-size:14px}.grid-v15 .tile{min-height:96px;padding:12px}}
+  `;
+  document.head.appendChild(v15css);
+
+  var prevRenderHome=renderHome;
+  renderHome=function(){
+    prevRenderHome();
+    var body=id('previewBody');
+    if(body) body.style.setProperty('--hero-body', skin().color);
+  };
+
+  /* Cleaner, less crowded squad spacing with smaller rear ranks */
+  reflowSquad=function(){
+    if(!squad.length)return;
+    var total=squad.length;
+    var pattern = total<=6 ? [1,2,3] : total<=12 ? [1,2,3,4] : total<=20 ? [1,2,3,4,5] : total<=30 ? [1,2,3,4,5,5,5] : [1,2,3,4,5,5,5,5,5];
+    var sidePad = total>28 ? 38 : total>18 ? 42 : 48;
+    var rowGap = total>28 ? 58 : total>16 ? 62 : 66;
+    var idx=0,row=0;
+    while(idx<total){
+      var cols=pattern[Math.min(row,pattern.length-1)];
+      cols=Math.min(cols,total-idx);
+      var spread = Math.min(sidePad*2,(cols-1)*sidePad);
+      for(var j=0;j<cols;j++){
+        var u=squad[idx+j];
+        var offset = cols===1 ? 0 : (-spread/2)+(spread*j/(cols-1));
+        if(row%2===1 && cols>2) offset += sidePad*.18;
+        u.ox=offset;
+        u.oy=row*rowGap;
+        u.row=row;
+        u.rankIndex=j;
+      }
+      idx+=cols; row++;
+    }
+    var b=leaderBounds();
+    leader.targetX=clamp(leader.targetX,W/2-b,W/2+b);
+    leader.x=clamp(leader.x,W/2-b,W/2+b);
+  };
+
+  formationPositions=function(){
+    return squad.map(function(u){
+      var row=u.row||0;
+      var scale=Math.max(.76,1-row*.045);
+      return {x:leader.x+u.ox, y:leader.y+u.oy*.68, unit:u, depth:scale};
+    });
+  };
+
+  var oldDrawSoldier=drawSoldier;
+  drawSoldier=function(p,index){
+    oldDrawSoldier(p,index);
+    var u=p.unit, row=u.row||0, sc=(p.depth||1)*(1-(u.spawn||0)*.55);
+    if(sc<.1) return;
+    X.save();
+    X.translate(p.x,p.y-(u.spawn||0)*18);
+    X.scale(sc,sc);
+    X.globalAlpha=.85;
+    X.strokeStyle = row===0 ? '#e0fbff88' : '#b8f1ff33';
+    X.lineWidth = row===0 ? 1.6 : 1.1;
+    X.beginPath();
+    X.moveTo(-13,-55); X.lineTo(13,-55);
+    X.moveTo(-18,-27); X.lineTo(18,-27);
+    X.stroke();
+    if(u.type==='heavy'){ X.fillStyle='#ffca62'; circle(0,-5,3.2,'#ffca62'); }
+    if(u.type==='scout'){ X.fillStyle='#78f5a6'; circle(0,-5,2.8,'#78f5a6'); }
+    X.restore();
+  };
+
+  var oldDrawLobbyBackground=drawLobbyBackground;
+  drawLobbyBackground=function(){ if(oldDrawLobbyBackground) oldDrawLobbyBackground(); };
+
+  v13Quality={name:'ASCENDANT V15',version:15,parallax:true,characterDetail:true,dynamicLight:true,setpieces:true,cleanLobby:true,readableFormation:true};
+  if(window.__ironVanguardTest){ window.__ironVanguardTest.quality=function(){return v13Quality}; }
+
+  renderAll();
+})();
+</script>
 showScreen('home');renderAll();drawLobbyBackground();
 })();
 </script>
