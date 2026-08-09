@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
 <meta name="theme-color" content="#02070c" />
-<title>Iron Vanguard — TOTAL WAR 3D V28</title>
+<title>Iron Vanguard — FRONTLINE REBUILD V29</title>
 <style>
 :root{--bg:#02070c;--panel:#07131ce8;--panel2:#0b1c29;--line:#83e7ef2b;--cyan:#72eaf3;--gold:#ffbd70;--green:#62e6a1;--red:#ff6d68;--muted:#89a1ad}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02070c;color:#fff;font-family:Inter,Arial,"Noto Sans Arabic",sans-serif}body{display:grid;place-items:center}
@@ -56,14 +56,26 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.hidden{di
 #v28Tutorial{position:absolute;left:50%;bottom:178px;z-index:31;transform:translateX(-50%) translateY(8px);opacity:0;pointer-events:none;max-width:82%;text-align:center;background:#07131eea;border:1px solid #7cebf235;border-radius:13px;padding:8px 10px;color:#d8f7f8;font-size:9px;font-weight:900;transition:.2s}#v28Tutorial.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-height:700px){#v28Weapon{bottom:102px}#v28Accuracy{display:none}#v28Secondary{top:96px}#v28Tutorial{bottom:155px}}
 
+
+/* FRONTLINE REBUILD V29 — visibly different lobby + encounter presentation */
+#home{background:radial-gradient(circle at 22% 20%,#123b45aa,transparent 28%),linear-gradient(180deg,transparent 0 42%,#02070c3d 58%,#02070cf4 79%,#02070c 100%)}
+#home .home-copy{top:84px;left:14px;right:14px}.home-title{font-size:34px;max-width:78%;line-height:.98}.home-desc{max-width:72%;font-size:10px;color:#c1d3d9}.mission-card{bottom:139px;border-radius:18px;border:1px solid #f7b35a42;background:linear-gradient(145deg,#0a1b26f2,#071018f7);box-shadow:0 18px 48px #000c,inset 0 1px 0 #ffffff08}.mission-card:before{content:"";position:absolute;top:0;left:17px;right:17px;height:2px;background:linear-gradient(90deg,transparent,#ffbd70,transparent)}
+#gameHud .hud-top{top:max(8px,env(safe-area-inset-top));grid-template-columns:.9fr .9fr .9fr auto}.stat{background:#03101bdd;border-color:#ffffff16}.ability-row{bottom:max(12px,env(safe-area-inset-bottom))}.ability{background:#06131ded;border-color:#75e7ef32}
+#v29Rail{position:absolute;top:max(95px,calc(env(safe-area-inset-top) + 84px));left:50%;transform:translateX(-50%);z-index:28;display:flex;align-items:center;gap:6px;pointer-events:none}.v29-dot{width:7px;height:7px;border-radius:50%;background:#ffffff22;border:1px solid #ffffff24;transition:.2s}.v29-dot.on{width:18px;border-radius:8px;background:#ffbd70;box-shadow:0 0 14px #ffbd7088}.v29-dot.done{background:#63e4a4}
+#v29Act{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%) scale(.94);z-index:34;min-width:68%;text-align:center;pointer-events:none;opacity:0;transition:.24s}.v29-act-kicker{display:inline-block;font-size:8px;font-weight:1000;letter-spacing:1.8px;color:#ffca83;background:#0a121bd9;border:1px solid #ffbd7030;border-radius:99px;padding:4px 8px}.v29-act-title{font-size:27px;line-height:1.05;font-weight:1000;margin-top:7px;text-shadow:0 6px 26px #000}.v29-act-sub{font-size:9px;color:#c0d2d9;margin-top:5px;text-shadow:0 3px 12px #000}.v29-act-show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#v29Tactical{position:absolute;left:10px;bottom:115px;z-index:27;pointer-events:none;width:108px;padding:7px 8px;border-radius:11px;background:#03101acb;border:1px solid #78eaf226;font-size:8px;color:#91aab4}.v29-tac-label{color:#6fe8f1;font-weight:1000;letter-spacing:.8px}.v29-tac-value{display:block;color:#fff;font-size:11px;font-weight:1000;margin-top:2px}.v29-tac-bar{height:3px;background:#ffffff10;border-radius:99px;margin-top:5px;overflow:hidden}.v29-tac-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#63e4a4,#ffbd70,#ff6e68)}
+#v29CineBars:before,#v29CineBars:after{content:"";position:absolute;left:0;right:0;height:0;background:#000;z-index:29;pointer-events:none;transition:height .28s ease}#v29CineBars:before{top:0}#v29CineBars:after{bottom:0}#v29CineBars.on:before,#v29CineBars.on:after{height:4.5%}
+.v29-route-label{position:absolute;z-index:27;top:43%;font-size:9px;font-weight:1000;padding:6px 8px;border-radius:99px;background:#06131ed9;border:1px solid #ffffff1b;color:#fff;opacity:0;transition:.2s;pointer-events:none}.v29-route-label.left{left:10%}.v29-route-label.right{right:10%}.v29-route-label.show{opacity:1}
+@media(max-height:700px){#v29Tactical{bottom:102px}#v29Act{top:28%}.home-title{font-size:29px}}
+
 </style>
 </head>
 <body><div id="app"><div id="v25Grade"></div><div id="v25Damage"></div><div id="v25Phase">جاهز</div><div id="v25Threat"><div class="v25-threat-label">ضغط المعركة</div><div class="v25-threat-bar"><i id="v25ThreatFill"></i></div></div>
-<div id="boot"><div><div class="boot-logo">IRON VANGUARD</div><div class="boot-sub">TOTAL WAR 3D · V28</div><div class="boot-line"><i></i></div><div id="bootStatus" style="font-size:9px;color:#6f8e9a;margin-top:12px">تحميل الشخصيات والحركة الحقيقية…</div></div></div>
+<div id="boot"><div><div class="boot-logo">IRON VANGUARD</div><div class="boot-sub">FRONTLINE REBUILD · V29</div><div class="boot-line"><i></i></div><div id="bootStatus" style="font-size:9px;color:#6f8e9a;margin-top:12px">تحميل الشخصيات والحركة الحقيقية…</div></div></div>
 <div id="v26Assets">RIG: LOADING</div><div id="v26Moment"></div>
 <div id="home" class="screen hidden">
  <div class="topbar"><div class="brand">IRON VANGUARD<small>REALMOTION 3D</small></div><div class="wallet"><div class="pill">🪙 <b id="coins">0</b></div><div class="pill">💎 <b id="gems">0</b></div></div></div>
- <div class="home-copy"><div class="eyebrow"><i></i> TOTAL WAR · منظومة القتال الكاملة</div><div class="home-title">الطليعة <span>تتحرك</span>.</div><div class="home-desc">TOTAL WAR V28: حركة Rigged، أسلحة مختلفة فعليًا، مراحل مصممة، ذكاء دعم، أحداث بيئية، أوضاع لعب، وصعوبة تكتيكية مع شاشة نظيفة.</div></div>
+ <div class="home-copy"><div class="eyebrow"><i></i> FRONTLINE REBUILD · تجربة قتال جديدة</div><div class="home-title">الطليعة <span>تتحرك</span>.</div><div class="home-desc">V29 يعيد بناء إيقاع اللعب نفسه: مراحل مقسمة إلى مشاهد مختلفة، توقفات قتال، اختيارات طرق، إنقاذ، حصار، زعماء وكاميرا تتغير مع الحدث.</div></div>
  <div class="mission-card"><div class="mission-top"><div><div class="mission-kicker">المهمة المحددة</div><div id="homeMission" class="mission-name">عملية الاختراق</div><div id="homeDetail" class="mission-detail">تقدم عبر الخط الأمامي وأسقط القوة المعادية.</div></div><button id="playBtn" class="play">ابدأ</button></div><div class="meta-row"><div class="meta"><small>المرحلة</small><b id="homeStage">1 / 1200</b></div><div class="meta"><small>التهديد</small><b id="homeThreat">1.45×</b></div><div class="meta"><small>المُعدّل</small><b id="homeModifier">اشتباك قياسي</b></div></div></div>
  <div class="quick"><button id="campaignBtn" class="qbtn"><b>⌖ خريطة العمليات</b><span>مهمات وبيئات مختلفة</span></button><button id="rewardBtn" class="qbtn"><b>🎁 الإمداد اليومي</b><span id="rewardText">جاهز للاستلام</span></button></div>
  <nav class="nav"><button class="active"><b>⌂</b>القاعدة</button><button id="navCampaign"><b>⌖</b>الحملة</button><button data-open-manage="heroes"><b>♟</b>الأبطال</button><button data-open-manage="upgrades"><b>⚙</b>التطوير</button><button data-open-manage="store"><b>◈</b>المتجر</button></nav>
@@ -825,15 +837,143 @@ function renderManagement(tab){const mc=$('#manageCoins');if(mc)mc.textContent=S
 $('#playBtn').onclick=startStage;$('#campaignBtn').onclick=showCampaign;$('#navCampaign').onclick=showCampaign;$('#backHome').onclick=showHome;$('#pauseBtn').onclick=()=>{if(!game.running)return;game.paused=true;$('#pauseOverlay').classList.remove('hidden')};$('#resumeBtn').onclick=()=>{game.paused=false;$('#pauseOverlay').classList.add('hidden');game.last=performance.now()};$('#quitBtn').onclick=showHome;$('#resultHome').onclick=showHome;$('#nextBtn').onclick=()=>{S.stage=Math.min(1200,S.stage+1);save();startStage()};$('#rewardBtn').onclick=()=>{const today=new Date().toISOString().slice(0,10);if(S.lastDaily===today){toast('استلمتها اليوم');return}S.lastDaily=today;S.coins+=170;save();updateHome();toast('+170 عملة');sfx.gate()};
 $$('[data-open-manage]').forEach(b=>b.onclick=()=>showManagement(b.dataset.openManage));$('#manageBack').onclick=showHome;$('#manageCampaign').onclick=showCampaign;$$('.manage-tab').forEach(b=>b.onclick=()=>renderManagement(b.dataset.manage));
 
+
+// ============================================================================
+// FRONTLINE REBUILD V29 — encounter engine: visible pacing, authored acts,
+// route decisions, arena stops, scene set-pieces and mission camera states.
+// This changes the core play rhythm instead of only adding background systems.
+// ============================================================================
+const V29_VERSION=29;
+const V29_ACT_META={
+ drop:['إنزال ساخن','ابدأ تحت النار وتحرك قبل أن يغلق العدو الممر.'],
+ breach29:['كسر الخط','دمر الحاجز وادفع وحدات الدرع خارج الطريق.'],
+ choice29:['قرار تكتيكي','اختر بين زيادة القوة أو ترقية النار.'],
+ rescue29:['استخراج فرقة','غيّر مسارك للوصول إلى وحدات محاصرة.'],
+ bossArena29:['ساحة القائد','التقدم يتوقف. أسقط قائد القطاع لتفتح الطريق.'],
+ sniperRun29:['ممر القناصة','لا تبقَ على خط واحد. راقب خطوط التصويب.'],
+ tunnelHold29:['إغلاق النفق','الجبهة تتوقف وتأتي الموجات على دفعات.'],
+ convoy29:['حماية القافلة','ابقَ قريبًا من المركبة واسقط المهاجمين.'],
+ extract29:['الاندفاع للإخلاء','السرعة ترتفع؛ النجاة أهم من جمع كل شيء.'],
+ mineRun29:['حقل حي','الممرات الآمنة تتبدل بين صفوف الألغام.'],
+ droneRaid29:['السماء معادية','سرب جوي يضغط من الأعلى بينما الأرض تتحرك.'],
+ split29:['طريقان','مساران مختلفان بمخاطرة ومكافأة مختلفتين.'],
+ fortress29:['باب الحصن','مدافع ثابتة ووحدات درع تحرس الاختراق.'],
+ tankColumn29:['عمود مدرع','اكسر مركز التشكيل قبل أن يصل إليك.'],
+ airstrike29:['قصف متحرك','دوائر التحذير تتبع الطريق؛ استمر في تغيير المسار.'],
+ nightRaid29:['غارة سوداء','رؤية منخفضة ونيران من أطراف الطريق.'],
+ supply29:['إمداد تحت النار','اختر هل تخاطر للحصول على دعم إضافي.'],
+ lastStand29:['الموقف الأخير','التقدم يتوقف؛ نجاة التشكيلة هي الهدف.'],
+ counter29:['هجوم مضاد','موجة سريعة من الجانبين ثم نخبة في المنتصف.'],
+ escape29:['انهيار الجبهة','اركض. الطريق خلفك لم يعد آمنًا.']
+};
+const V29_STAGE_SCRIPTS=[
+ ['drop','breach29','choice29','rescue29','bossArena29'],
+ ['sniperRun29','tunnelHold29','convoy29','counter29','extract29'],
+ ['mineRun29','droneRaid29','split29','fortress29','bossArena29'],
+ ['drop','airstrike29','supply29','tankColumn29','lastStand29'],
+ ['nightRaid29','sniperRun29','breach29','counter29','escape29'],
+ ['convoy29','split29','droneRaid29','airstrike29','fortress29'],
+ ['rescue29','mineRun29','tankColumn29','choice29','bossArena29'],
+ ['drop','tunnelHold29','supply29','counter29','lastStand29'],
+ ['sniperRun29','fortress29','airstrike29','rescue29','extract29'],
+ ['nightRaid29','mineRun29','droneRaid29','tankColumn29','bossArena29'],
+ ['convoy29','choice29','breach29','supply29','escape29'],
+ ['drop','counter29','fortress29','airstrike29','lastStand29']
+];
+const V29_STAGE_NAMES=['عملية رأس الحربة','ممر الصدى','الجسر الأسود','حصار الغبار','ليلة الرماد','طريق الحديد','نقطة الصفر','الجبهة المنكسرة','قوس القناصة','سماء حمراء','القافلة الأخيرة','بوابة الجحيم'];
+
+(function v29BuildUI(){
+ const app=document.getElementById('app');
+ if(!document.getElementById('v29Rail')){const r=document.createElement('div');r.id='v29Rail';r.innerHTML='<i class="v29-dot on"></i><i class="v29-dot"></i><i class="v29-dot"></i><i class="v29-dot"></i><i class="v29-dot"></i>';app.appendChild(r)}
+ if(!document.getElementById('v29Act')){const a=document.createElement('div');a.id='v29Act';a.innerHTML='<span class="v29-act-kicker">ACT 1 / 5</span><div class="v29-act-title">الإنزال</div><div class="v29-act-sub">استعد.</div>';app.appendChild(a)}
+ if(!document.getElementById('v29Tactical')){const t=document.createElement('div');t.id='v29Tactical';t.innerHTML='<span class="v29-tac-label">BATTLE STATE</span><b class="v29-tac-value">تحرك</b><div class="v29-tac-bar"><i></i></div>';app.appendChild(t)}
+ if(!document.getElementById('v29CineBars')){const c=document.createElement('div');c.id='v29CineBars';app.appendChild(c)}
+ if(!document.getElementById('v29RouteL')){const l=document.createElement('div');l.id='v29RouteL';l.className='v29-route-label left';l.textContent='قوة +';app.appendChild(l);const rr=document.createElement('div');rr.id='v29RouteR';rr.className='v29-route-label right';rr.textContent='نار ×';app.appendChild(rr)}
+})();
+
+function v29ActUI(index,name){
+ game.v29Act=index;game.v29ActName=name;const meta=V29_ACT_META[name]||['اشتباك','غيّر خطتك حسب الموقف.'];
+ document.querySelectorAll('#v29Rail .v29-dot').forEach((d,i)=>{d.classList.toggle('done',i<index);d.classList.toggle('on',i===index)});
+ const a=document.getElementById('v29Act');a.querySelector('.v29-act-kicker').textContent=`ACT ${index+1} / 5`;a.querySelector('.v29-act-title').textContent=meta[0];a.querySelector('.v29-act-sub').textContent=meta[1];a.classList.add('v29-act-show');
+ document.getElementById('objective').textContent=meta[1];document.getElementById('v29CineBars').classList.add('on');clearTimeout(a._v29t);a._v29t=setTimeout(()=>{a.classList.remove('v29-act-show');document.getElementById('v29CineBars').classList.remove('on')},1150);
+ const tv=document.querySelector('#v29Tactical .v29-tac-value');if(tv)tv.textContent=meta[0];
+}
+function v29RouteLabels(left='قوة +',right='نار ×',time=3300){const l=document.getElementById('v29RouteL'),r=document.getElementById('v29RouteR');l.textContent=left;r.textContent=right;l.classList.add('show');r.classList.add('show');clearTimeout(l._t);l._t=setTimeout(()=>{l.classList.remove('show');r.classList.remove('show')},time)}
+function v29Decor(kind,x=0,z=-42){const g=new THREE.Group();g.position.set(x,0,z);const dark=mat(0x27343b,.58,.58),metal=mat(0x586972,.66,.34),warn=mat(0xf0a247,.18,.5,.35);
+ if(kind==='tower'){mesh(G.box(.35,3.2,.35),dark,g,-.65,1.6,0);mesh(G.box(.35,3.2,.35),dark,g,.65,1.6,0);mesh(G.box(1.75,.18,1.2),metal,g,0,3.15,0);mesh(G.box(1.2,.72,.9),dark,g,0,3.55,0)}
+ else if(kind==='wall'){mesh(G.box(7.6,1.9,.65),dark,g,0,.95,0);for(const xx of [-3,-1.5,0,1.5,3])mesh(G.box(.12,2.3,.78),metal,g,xx,1.15,0)}
+ else if(kind==='wreck'){mesh(G.box(1.7,.58,2.8),metal,g,0,.45,0);mesh(G.box(1.05,.58,1.25),dark,g,0,.9,-.45);for(const xx of [-.7,.7])for(const zz of [-.9,.9]){const w=mesh(G.cyl(.25,.25,.18,10),mat(0x101419,.1,.95),g,xx,.24,zz);w.rotation.z=Math.PI/2}mesh(G.sphere(.22,10),warn,g,0,1.35,-.1)}
+ else if(kind==='arch'){mesh(G.box(.42,3.8,.6),metal,g,-3.6,1.9,0);mesh(G.box(.42,3.8,.6),metal,g,3.6,1.9,0);mesh(G.box(7.6,.4,.7),metal,g,0,3.7,0)}
+ else if(kind==='cratewall'){for(let i=0;i<6;i++)mesh(G.box(1.05,.9,1.0),i%2?metal:dark,g,(i%3-1)*1.2,.45+Math.floor(i/3)*.92,0)}
+ return addInteractive(g,{type:'decor',used:false,v29:true})}
+function v29FireLine(side=1){for(let i=0;i<4;i++){const e=spawnEnemy(i===3?'elite':'rifle',side*(2.2+(i%2)*.55),-42-i*2.2);if(e)e.position.x=side*(2.2+(i%2)*.55)}}
+
+const v29BaseStageConfig=stageConfig;
+stageConfig=function(n){const c=v29BaseStageConfig(n);if(n<=V29_STAGE_SCRIPTS.length&&(!game.pendingMode||game.pendingMode==='campaign')){c.stageTitle=V29_STAGE_NAMES[n-1];c.type={id:'v29op',name:V29_STAGE_NAMES[n-1],desc:'عملية متعددة المشاهد وليست جولة واحدة مكررة.',goal:'distance',base:100};c.phasePlan=V29_STAGE_SCRIPTS[n-1].slice();c.phaseMarks=[.035,.235,.455,.675,.875];c.length=68+(n%3)*8;c.enemyRate=Math.max(.34,c.enemyRate*.92);c.threat*=1.08;c.v29Authored=true}return c};
+
+const v29BasePhase=v26Phase;
+v26Phase=function(name){if(!V29_ACT_META[name])return v29BasePhase(name);const idx=Math.max(0,game.cfg.phasePlan.indexOf(name));v29ActUI(idx,name);game.v26SpeedMul=1;game.v26PhaseTimer=0;game.v29BossGate=false;
+ if(name==='drop'){game.v26SpeedMul=1.28;game.v26PhaseTimer=4.4;v29Decor('arch',0,-35);spawnPattern('runner',2);safeDelay(650,()=>spawnPattern('rifle',1))}
+ else if(name==='breach29'){game.v26SpeedMul=.48;game.v26PhaseTimer=5.6;v29Decor('wall',0,-43);makeBarricade(0,-38);spawnEnemy('shield',-2,-45);spawnEnemy('shield',2,-45);spawnEnemy('brute',0,-49)}
+ else if(name==='choice29'){game.v26SpeedMul=.82;game.v26PhaseTimer=4.5;makeGate(-1.8,-34,'add',5);makeGate(1.8,-34,'mul',1.5);v29RouteLabels('تجنيد +','معدل نار ×')}
+ else if(name==='rescue29'){game.v26SpeedMul=.66;game.v26PhaseTimer=5.2;makeBeacon(-2.0,-34,'rescue');makeBeacon(2.0,-41,'rescue');v29FireLine(-1);spawnEnemy('sniper',2.7,-50)}
+ else if(name==='bossArena29'){game.v26SpeedMul=.055;game.v26PhaseTimer=12;game.v29BossGate=true;v29Decor('tower',-3.4,-45);v29Decor('tower',3.4,-45);v29Decor('arch',0,-50);if(!enemies.some(e=>e.visible&&e.userData.kind==='boss'))spawnEnemy('boss',0,-48);cameraKick=.16}
+ else if(name==='sniperRun29'){game.v26SpeedMul=1.05;game.v26PhaseTimer=5.5;for(const x of [-3,-1.2,1.2,3])spawnEnemy('sniper',x,-44-Math.abs(x)*1.8);v29Decor('tower',-3.5,-49);v29Decor('tower',3.5,-49)}
+ else if(name==='tunnelHold29'){game.v26SpeedMul=.12;game.v26PhaseTimer=7;v28Decor('tunnel',-31);spawnPattern('rifle',2);safeDelay(1000,()=>spawnPattern('runner',2));safeDelay(2200,()=>spawnPattern('elite',1))}
+ else if(name==='convoy29'){game.v26SpeedMul=.70;game.v26PhaseTimer=7;convoy.visible=true;convoy.userData.hp=Math.max(70,convoy.userData.hp||100);v29Decor('wreck',-3.1,-39);v29Decor('wreck',3.1,-49);v29FireLine(-1);v29FireLine(1)}
+ else if(name==='extract29'){game.v26SpeedMul=1.42;game.v26PhaseTimer=6.5;makeBeacon(0,-47,'checkpoint');spawnPattern('runner',3);v29Decor('arch',0,-56)}
+ else if(name==='mineRun29'){game.v26SpeedMul=.78;game.v26PhaseTimer=6;for(let i=0;i<9;i++){const lane=[-2.4,0,2.4][i%3];if(i%4!==1)makeMine(lane,-30-i*3.2)}v29RouteLabels('الممر الأيسر','الممر الأيمن',2600)}
+ else if(name==='droneRaid29'){game.v26SpeedMul=.95;game.v26PhaseTimer=6;for(let i=0;i<9;i++)spawnEnemy('drone',(i%5-2)*1.25,-38-i*1.35);spawnPattern('rifle',1)}
+ else if(name==='split29'){game.v26SpeedMul=.72;game.v26PhaseTimer=5.8;makeGate(-2.0,-36,'add',7);makeGate(2.0,-36,'mul',1.75);makeBarricade(0,-39);v29RouteLabels('جيش أكبر','سلاح أقوى')}
+ else if(name==='fortress29'){game.v26SpeedMul=.18;game.v26PhaseTimer=8;v29Decor('wall',0,-49);v25MakeTurret(-2.5,-43);v25MakeTurret(2.5,-43);spawnEnemy('shield',-1.6,-47);spawnEnemy('brute',0,-50);spawnEnemy('shield',1.6,-47)}
+ else if(name==='tankColumn29'){game.v26SpeedMul=.55;game.v26PhaseTimer=6.5;v25MakeTruck(0,-52);spawnEnemy('shield',-2,-44);spawnEnemy('brute',0,-47);spawnEnemy('shield',2,-44);safeDelay(900,()=>spawnPattern('elite',1))}
+ else if(name==='airstrike29'){game.v26SpeedMul=.96;game.v26PhaseTimer=6;for(let i=0;i<5;i++)safeDelay(i*500,()=>makeMortar([-2.2,0,2.2,1.1,-1.1][i],.85+i*.06));v29Decor('wreck',3.4,-46)}
+ else if(name==='nightRaid29'){game.v26SpeedMul=.82;game.v26PhaseTimer=6.2;game.v26FogBase=scene.fog.density;scene.fog.density=Math.max(.038,scene.fog.density);v29FireLine(-1);v29FireLine(1);spawnEnemy('sniper',0,-51)}
+ else if(name==='supply29'){game.v26SpeedMul=.62;game.v26PhaseTimer=5.5;makeBeacon(-2,-36,'supply');makeBeacon(2,-42,'supply');v28FuelDepot();spawnPattern('elite',1);v29RouteLabels('إمداد','أدرينالين')}
+ else if(name==='lastStand29'){game.v26SpeedMul=.04;game.v26PhaseTimer=9;v29Decor('cratewall',-3.3,-38);v29Decor('cratewall',3.3,-38);spawnPattern('rifle',2);safeDelay(950,()=>spawnPattern('runner',2));safeDelay(2100,()=>spawnPattern('elite',2));safeDelay(3600,()=>spawnEnemy('brute',0,-47))}
+ else if(name==='counter29'){game.v26SpeedMul=.45;game.v26PhaseTimer=5.5;v29FireLine(-1);v29FireLine(1);safeDelay(900,()=>spawnPattern('runner',3));safeDelay(2200,()=>spawnPattern('elite',1))}
+ else if(name==='escape29'){game.v26SpeedMul=1.55;game.v26PhaseTimer=7;for(let i=0;i<4;i++)makeMortar((i%2?1:-1)*(1.2+i*.35),.9+i*.15);v29Decor('wreck',-3.2,-40);v29Decor('wreck',3.2,-50)}
+};
+
+const v29BaseProgress=progressValue;
+progressValue=function(){const p=v29BaseProgress();if(game.v29BossGate&&!game.boss)return Math.min(.985,p);return p};
+
+const v29BaseStart=startStage;
+startStage=function(){v29BaseStart();game.v29Act=-1;game.v29ActName='';game.v29BossGate=false;game.v29CamBlend=0;if(game.cfg?.v29Authored){game.spawn=999;game.event=999}document.getElementById('v29Rail').style.display='flex';document.getElementById('v29Tactical').style.display='block';document.querySelectorAll('#v29Rail .v29-dot').forEach((d,i)=>{d.classList.toggle('on',i===0);d.classList.remove('done')});camera.position.set(0,5.9,12.2);camera.fov=54;camera.updateProjectionMatrix();};
+
+const v29BaseShowHome=showHome;
+showHome=function(){v29BaseShowHome();document.getElementById('v29Rail').style.display='none';document.getElementById('v29Tactical').style.display='none';document.getElementById('v29Act').classList.remove('v29-act-show');document.getElementById('v29CineBars').classList.remove('on');camera.position.set(-.55,4.15,6.45);camera.fov=46;camera.updateProjectionMatrix();camera.lookAt(.15,1.15,-3.15)};
+
+const v29BaseUpdateHome=updateHome;
+updateHome=function(){v29BaseUpdateHome();const c=stageConfig(S.stage);if(c.v29Authored){document.getElementById('homeMission').textContent=c.stageTitle;document.getElementById('homeDetail').textContent='5 مشاهد قتال مختلفة · '+c.biome.name+' · '+c.modifier.name}}
+
+const v29BaseUpdateWorld=updateWorld;
+updateWorld=function(dt,t){v29BaseUpdateWorld(dt,t);if(!game.running)return;const name=game.v29ActName||'',boss=name==='bossArena29',hold=['tunnelHold29','fortress29','lastStand29'].includes(name),sprint=['drop','extract29','escape29'].includes(name);const targetFov=boss?44:hold?48:sprint?59:53;camera.fov=lerp(camera.fov,targetFov,smooth(dt,2.8));const y=boss?5.25:hold?4.95:5.7,z=boss?10.2:hold?9.6:11.5;camera.position.y=lerp(camera.position.y,y,smooth(dt,2.5));camera.position.z=lerp(camera.position.z,z,smooth(dt,2.5));camera.updateProjectionMatrix();const bar=document.querySelector('#v29Tactical .v29-tac-bar i');if(bar)bar.style.width=Math.min(100,(enemies.length/24)*100)+'%'};
+
+
+const v29BaseSyncHud=syncHud;
+syncHud=function(){v29BaseSyncHud();if(!game.cfg)return;const b=enemies.find(e=>e.visible&&e.userData.kind==='boss');if(b){document.getElementById('bossWrap').classList.remove('hidden');document.getElementById('bossFill').style.width=(clamp(b.userData.hp/b.userData.maxHp,0,1)*100)+'%'}else if(game.cfg.type.id!=='boss'){document.getElementById('bossWrap').classList.add('hidden')}};
+
+// Rebind direct handlers that captured the V28 functions before this rebuild was installed.
+document.getElementById('playBtn').onclick=startStage;
+document.getElementById('backHome').onclick=showHome;
+document.getElementById('resultHome').onclick=showHome;
+document.getElementById('manageBack').onclick=showHome;
+
+// Prevent generic random events from overwhelming the authored first 12 stages.
+const v29BaseSpawnEvent=spawnEvent;
+spawnEvent=function(){if(game.cfg?.v29Authored){if(game.v29ActName==='bossArena29'||game.v29ActName==='lastStand29'||game.v29ActName==='tunnelHold29')return;if(game.missionRng()>.72)return v29BaseSpawnEvent();return}return v29BaseSpawnEvent()};
+
+
 // adaptive performance + render loop
 let prev=performance.now(),fpsAcc=0,fpsN=0,lastQualityCheck=0;
 function frame(now){requestAnimationFrame(frame);let dt=Math.min(.045,(now-prev)/1000);prev=now;const t=now/1000;if(game.running&&!game.paused)updateGame(dt,t);else if(lobbyGroup.visible){let i=0;for(const s of lobbySoldiers)animateSoldier(s,t,.30+((i++)%3)*.025);camera.position.x=Math.sin(t*.20)*.32;camera.position.y=4.3+Math.sin(t*.28)*.04;camera.lookAt(0,1.25,-3.2);for(const o of lobbyGroup.children){if(o.userData?.pulse!=null)o.scale.setScalar(1+Math.sin(t*2+o.userData.pulse)*.15)}}fpsAcc+=1/Math.max(.001,dt);fpsN++;if(now-lastQualityCheck>2300){const avg=fpsAcc/Math.max(1,fpsN);game.fps=avg;fpsAcc=0;fpsN=0;lastQualityCheck=now;if(game.running&&!game.qualityLocked){const maxPR=Math.min(devicePixelRatio,1.42),pr=renderer.getPixelRatio();if(avg<40){game.quality=Math.max(.62,game.quality-.12);if(pr>.82){renderer.setPixelRatio(Math.max(.82,pr-.14));renderer.setSize(APP.clientWidth,APP.clientHeight,false)}}else if(avg>56){game.quality=Math.min(1,game.quality+.06);if(pr<maxPR){renderer.setPixelRatio(Math.min(maxPR,pr+.07));renderer.setSize(APP.clientWidth,APP.clientHeight,false)}}}}renderer.render(scene,camera)}
 function resize(){const w=APP.clientWidth,h=APP.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}addEventListener('resize',resize);
 
 // QA hooks
-window.__ironVanguard3D={version:28,realMotion:()=>({loaded:REAL_SOLDIER_OK,clips:(REAL_SOLDIER_ASSET?.animations||[]).map(a=>a.name),url:REAL_SOLDIER_URL}),stageConfig,formationTargets,types:V25_TYPES.map(x=>x.id),biomes:BIOMES.map(x=>x.id),modifiers:V25_MODIFIERS.map(x=>x.id),setpieces:V25_SETPIECES.slice(),reset:()=>{S={...defaultSave,upgrades:{...defaultSave.upgrades},best:{}};save();updateHome()},state:()=>({stage:S.stage,unlocked:S.unlocked,running:game.running,squad:squad.length,enemies:enemies.length,interactives:interactives.length,fps:game.fps,mission:game.cfg?.type.id||'lobby',quality:game.quality,pixelRatio:renderer.getPixelRatio()}),setStage:n=>{S.stage=clamp(Number(n)||1,1,1200);S.unlocked=Math.max(S.unlocked,S.stage);save();updateHome()},start:startStage,addSquad,threat:n=>stageConfig(n).threat,blueprints:()=>V28_BLUEPRINTS.map(x=>x[0]),quality:()=>S.qualityMode,qa:()=>({roadSegments:road.length,roadSpan:road.length*18,squad:squad.length,shots:game.shots||0,hits:game.hits||0,losses:game.losses||0,mode:game.mode||'campaign',runId:game.runId||0})};
+window.__ironVanguard3D={version:29,realMotion:()=>({loaded:REAL_SOLDIER_OK,clips:(REAL_SOLDIER_ASSET?.animations||[]).map(a=>a.name),url:REAL_SOLDIER_URL}),stageConfig,formationTargets,types:V25_TYPES.map(x=>x.id),biomes:BIOMES.map(x=>x.id),modifiers:V25_MODIFIERS.map(x=>x.id),setpieces:V25_SETPIECES.slice(),reset:()=>{S={...defaultSave,upgrades:{...defaultSave.upgrades},best:{}};save();updateHome()},state:()=>({stage:S.stage,unlocked:S.unlocked,running:game.running,squad:squad.length,enemies:enemies.length,interactives:interactives.length,fps:game.fps,mission:game.cfg?.type.id||'lobby',quality:game.quality,pixelRatio:renderer.getPixelRatio()}),setStage:n=>{S.stage=clamp(Number(n)||1,1,1200);S.unlocked=Math.max(S.unlocked,S.stage);save();updateHome()},start:startStage,addSquad,threat:n=>stageConfig(n).threat,blueprints:()=>V28_BLUEPRINTS.map(x=>x[0]),quality:()=>S.qualityMode,qa:()=>({roadSegments:road.length,roadSpan:road.length*18,squad:squad.length,shots:game.shots||0,hits:game.hits||0,losses:game.losses||0,mode:game.mode||'campaign',runId:game.runId||0})};
 
 resetSquad();showHome();boot.classList.add('hidden');home.classList.remove('hidden');updateHome();requestAnimationFrame(frame);
 
 </script>
-<script>document.documentElement.dataset.ironVanguard="TOTAL-WAR-V28";</script></body></html>
+<script>document.documentElement.dataset.ironVanguard="FRONTLINE-REBUILD-V29";</script></body></html>
